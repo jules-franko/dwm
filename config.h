@@ -18,11 +18,11 @@ static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#663984"; /*RED: af0000*/ /*F7F751*/ /*217f42 Green*/ /*005577*/ /*FFFF55*/
+static const char col_cyan[]        = "#303030"; /*RED: af0000*/ /*F7F751*/ /*217f42 Green*/ /*005577*/ /*FFFF55*/
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 }, /*col_gray2*/
-	[SchemeSel]  = { col_gray1, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_gray3, col_cyan,  col_cyan  },
 };
 
 /* tagging */
@@ -40,6 +40,8 @@ static const Rule rules[] = {
 	{ "firefox", NULL, NULL, 		2, 	  0, 	      0, 	   0,	      0,	 -1},
 	{ "Steam", NULL, NULL, 			6, 	  0, 	      0, 	   0,	      0,	 -1},
 	{ "dolphin", NULL, NULL, 		0, 	  1, 	      1, 	   0,	      1,	 -1},
+	{ NULL, NULL, "ncmpcpp", 		0, 	  1, 	      1, 	   1,	      1,	 -1},
+	{ NULL, NULL, "newsboat", 		0, 	  0, 	      0, 	   1,	      0,	 -1},
 };
 
 /* layout(s) */
@@ -73,7 +75,7 @@ static const char *termcmd[]  = { "st", NULL };
 //static const char *thunarcmd[]  = { "st", "-t", "Ranger", "-e", "ranger", NULL };
 static const char *thunarcmd[]  = { "st", "-e", "lf", NULL };
 static const char *librewolfcmd[]  = { "firefox", NULL };
-static const char *changewall[]  = { "/home/jules/.config/scripts/setbg.sh", NULL };
+static const char *changewall[]  = { "/home/jules/.scripts/wallchanger.sh", NULL };
 static const char *bup[]  = { "brightnessctl", "set", "+2%", NULL };
 static const char *bdown[]  = { "brightnessctl", "set", "2%-", NULL };
 static const char *vup[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
@@ -82,6 +84,7 @@ static const char *ss[] = {"flameshot", "gui", NULL};
 static const char *misato[] = {"feh", "/home/jules/Pictures/misato", NULL};
 static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", "-theme", "purple", NULL };
 static const char *music[] = {"st", "-e", "ncmpcpp", NULL};
+static const char *rss[] = {"st", "-e", "newsboat", NULL};
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -93,6 +96,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_s,      spawn,          {.v = ss } },
 	{ MODKEY,                       XK_y,      spawn,          {.v = misato } },
 	{ MODKEY,                       XK_m,      spawn,          {.v = music } },
+	{ MODKEY,                       XK_n,      spawn,          {.v = rss } },
 	{ 0,                            XF86XK_MonBrightnessUp,    spawn,          {.v = bup } },
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn,          {.v = bdown } },
 	{ 0,                            XF86XK_AudioRaiseVolume,   spawn,          {.v = vup } },
