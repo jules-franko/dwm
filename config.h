@@ -85,6 +85,7 @@ static const char *misato[] = {"feh", "/home/jules/Pictures/misato", NULL};
 static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", "-theme", "purple", NULL };
 static const char *music[] = {"st", "-e", "ncmpcpp", NULL};
 static const char *rss[] = {"st", "-e", "newsboat", NULL};
+static const char *findsong[] = {"/home/jules/.scripts/findsong", NULL};
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -97,6 +98,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_y,      spawn,          {.v = misato } },
 	{ MODKEY,                       XK_m,      spawn,          {.v = music } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = rss } },
+	{ MODKEY,                       XK_o,      spawn,          {.v = findsong } },
 	{ 0,                            XF86XK_MonBrightnessUp,    spawn,          {.v = bup } },
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn,          {.v = bdown } },
 	{ 0,                            XF86XK_AudioRaiseVolume,   spawn,          {.v = vup } },
