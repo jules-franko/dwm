@@ -36,10 +36,10 @@ static const Rule rules[] = {
 	 */
 	/* class     instance  title           tags mask  iscentered  isfloating  isterminal  noswallow  monitor */
 	{ "St",      NULL,     NULL,    	 0,        0,          0,           1,         1, 	 -1},
-	{ NULL, NULL, "Ranger", 		0, 	  1, 	      1, 	   1,	      0,	 -1},
-	{ "firefox", NULL, NULL, 		2, 	  0, 	      0, 	   0,	      0,	 -1},
-	{ "Steam", NULL, NULL, 			6, 	  0, 	      0, 	   0,	      0,	 -1},
-	{ "dolphin", NULL, NULL, 		0, 	  1, 	      1, 	   0,	      1,	 -1},
+	//{ NULL, NULL, "Ranger", 		0, 	  1, 	      1, 	   1,	      0,	 -1},
+	//{ "firefox", NULL, NULL, 		2, 	  0, 	      0, 	   0,	      0,	 -1},
+	//{ "Steam", NULL, NULL, 			6, 	  0, 	      0, 	   0,	      0,	 -1},
+	//{ "dolphin", NULL, NULL, 		0, 	  1, 	      1, 	   0,	      1,	 -1},
 	{ NULL, NULL, "ncmpcpp", 		0, 	  1, 	      1, 	   1,	      1,	 -1},
 	{ NULL, NULL, "newsboat", 		0, 	  0, 	      0, 	   1,	      0,	 -1},
 };
@@ -73,7 +73,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray1, NULL };
 static const char *termcmd[]  = { "st", NULL };
 //static const char *thunarcmd[]  = { "st", "-t", "Ranger", "-e", "ranger", NULL };
-static const char *thunarcmd[]  = { "st", "-e", "lf", NULL };
+static const char *thunarcmd[]  = { "st", "-e", "ranger", NULL };
 static const char *librewolfcmd[]  = { "firefox", NULL };
 static const char *changewall[]  = { "/home/jules/.scripts/wallchanger.sh", NULL };
 static const char *bup[]  = { "brightnessctl", "set", "+2%", NULL };
@@ -99,6 +99,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_m,      spawn,          {.v = music } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = rss } },
 	{ MODKEY,                       XK_o,      spawn,          {.v = findsong } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = ( const char*[] ){ "mpc", "toggle", NULL } } },
 	{ 0,                            XF86XK_MonBrightnessUp,    spawn,          {.v = bup } },
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn,          {.v = bdown } },
 	{ 0,                            XF86XK_AudioRaiseVolume,   spawn,          {.v = vup } },
