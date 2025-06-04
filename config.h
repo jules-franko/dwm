@@ -9,7 +9,7 @@ static const unsigned int gappih    = 10;       /* horiz inner gap between windo
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
 static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
-static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
+static const int smartgaps          = 1;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "terminus:size=15","fontawesome" };
@@ -36,7 +36,8 @@ static const Rule rules[] = {
 	 */
 	/* class     instance  title           tags mask  iscentered  isfloating  isterminal  noswallow  monitor */
 	{ "St",      NULL,     NULL,    	 0,        0,          0,           1,         1, 	 -1},
-	//{ NULL, NULL, "Ranger", 		0, 	  1, 	      1, 	   1,	      0,	 -1},
+	{ NULL,      NULL,     "stt",    	 0,        1,          1,           1,         1, 	 -1},
+	{ NULL,      NULL,     "ranger", 		0, 	  1, 	      1, 	   1,	      0,	 -1},
 	//{ "firefox", NULL, NULL, 		2, 	  0, 	      0, 	   0,	      0,	 -1},
 	//{ "Steam", NULL, NULL, 			6, 	  0, 	      0, 	   0,	      0,	 -1},
 	//{ "dolphin", NULL, NULL, 		0, 	  1, 	      1, 	   0,	      1,	 -1},
@@ -72,6 +73,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray1, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *termcmdsmall[]  = { "st", "-t", "stt", NULL };
 //static const char *thunarcmd[]  = { "st", "-t", "Ranger", "-e", "ranger", NULL };
 static const char *thunarcmd[]  = { "st", "-e", "ranger", NULL };
 static const char *librewolfcmd[]  = { "firefox", NULL };
@@ -85,7 +87,10 @@ static const char *misato[] = {"feh", "/home/jules/Pictures/misato", NULL};
 static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", "-theme", "purple", NULL };
 static const char *music[] = {"st", "-e", "ncmpcpp", NULL};
 static const char *rss[] = {"st", "-e", "newsboat", NULL};
+static const char *mail[] = {"st", "-e", "neomutt", NULL};
 static const char *findsong[] = {"/home/jules/.scripts/findsong", NULL};
+static const char *imageview[] = {"/home/jules/.scripts/imageview", NULL};
+static const char *killprocess[] = {"/home/jules/.scripts/killprocess", NULL};
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -93,13 +98,19 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_e,      spawn,          {.v = thunarcmd } },
         { MODKEY,                       XK_f,      spawn,          {.v = librewolfcmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmdsmall } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = changewall } },
 	{ MODKEY,                       XK_s,      spawn,          {.v = ss } },
 	{ MODKEY,                       XK_y,      spawn,          {.v = misato } },
 	{ MODKEY,                       XK_m,      spawn,          {.v = music } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = rss } },
+	{ MODKEY,                       XK_g,      spawn,          {.v = mail } },
 	{ MODKEY,                       XK_o,      spawn,          {.v = findsong } },
+	{ MODKEY,                       XK_u,      spawn,          {.v = imageview } },
+	{ MODKEY|ControlMask,           XK_q,      spawn,          {.v = killprocess } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = ( const char*[] ){ "mpc", "toggle", NULL } } },
+	{ MODKEY,                       XK_c,      spawn,          {.v = ( const char*[] ){ "st", "-e", "calc", NULL } } },
+	{ MODKEY,                       XK_l,      spawn,          {.v = ( const char*[] ){ "st", "-e", "vim", "/home/jules/suckless/dwm/config.h", NULL } } },
 	{ 0,                            XF86XK_MonBrightnessUp,    spawn,          {.v = bup } },
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn,          {.v = bdown } },
 	{ 0,                            XF86XK_AudioRaiseVolume,   spawn,          {.v = vup } },
