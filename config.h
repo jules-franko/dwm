@@ -42,6 +42,7 @@ static const Rule rules[] = {
 	//{ "Steam", NULL, NULL, 			6, 	  0, 	      0, 	   0,	      0,	 -1},
 	//{ "dolphin", NULL, NULL, 		0, 	  1, 	      1, 	   0,	      1,	 -1},
 	{ NULL, NULL, "ncmpcpp", 		0, 	  1, 	      1, 	   1,	      1,	 -1},
+	{ NULL, NULL, "rmpc", 		0, 	  1, 	      1, 	   1,	      1,	 -1},
 	{ NULL, NULL, "newsboat", 		0, 	  0, 	      0, 	   1,	      0,	 -1},
 };
 
@@ -85,12 +86,13 @@ static const char *vdown[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-
 static const char *ss[] = {"flameshot", "gui", NULL};
 static const char *misato[] = {"feh", "/home/jules/Pictures/misato", NULL};
 static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", "-theme", "purple", NULL };
-static const char *music[] = {"st", "-e", "ncmpcpp", NULL};
+static const char *music[] = {"st", "-e", "rmpc", NULL};
 static const char *rss[] = {"st", "-e", "newsboat", NULL};
 static const char *mail[] = {"st", "-e", "neomutt", NULL};
 static const char *findsong[] = {"/home/jules/.scripts/findsong", NULL};
 static const char *imageview[] = {"/home/jules/.scripts/imageview", NULL};
 static const char *killprocess[] = {"/home/jules/.scripts/killprocess", NULL};
+static const char *passmenu[] = {"/home/jules/.scripts/passmenu", NULL};
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -98,7 +100,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_e,      spawn,          {.v = thunarcmd } },
         { MODKEY,                       XK_f,      spawn,          {.v = librewolfcmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmdsmall } },
+	{ MODKEY|ControlMask,             XK_Return, spawn,          {.v = termcmdsmall } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = changewall } },
 	{ MODKEY,                       XK_s,      spawn,          {.v = ss } },
 	{ MODKEY,                       XK_y,      spawn,          {.v = misato } },
@@ -107,6 +109,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_g,      spawn,          {.v = mail } },
 	{ MODKEY,                       XK_o,      spawn,          {.v = findsong } },
 	{ MODKEY,                       XK_u,      spawn,          {.v = imageview } },
+	{ MODKEY,                       XK_y,      spawn,          {.v = passmenu } },
 	{ MODKEY|ControlMask,           XK_q,      spawn,          {.v = killprocess } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = ( const char*[] ){ "mpc", "toggle", NULL } } },
 	{ MODKEY,                       XK_c,      spawn,          {.v = ( const char*[] ){ "st", "-e", "calc", NULL } } },
