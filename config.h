@@ -37,7 +37,9 @@ static const Rule rules[] = {
 	/* class     instance  title           tags mask  iscentered  isfloating  isterminal  noswallow  monitor */
 	{ "St",      NULL,     NULL,    	 0,        0,          0,           1,         1, 	 -1},
 	{ NULL,      NULL,     "stt",    	 0,        1,          1,           1,         1, 	 -1},
-	{ NULL,      NULL,     "ranger", 		0, 	  1, 	      1, 	   1,	      0,	 -1},
+	{ NULL,      NULL,     "ranger", 	 0, 	   1, 	       1,  	    1,	       0,	 -1},
+	{ "mpv",     NULL,     NULL,   		 0, 	   1, 	       1,  	    1,	       0,	 -1},
+	{ NULL,      NULL,     "nsxiv",   		 0, 	   1, 	       1,  	    0,	       0,	 -1},
 	//{ "firefox", NULL, NULL, 		2, 	  0, 	      0, 	   0,	      0,	 -1},
 	//{ "Steam", NULL, NULL, 			6, 	  0, 	      0, 	   0,	      0,	 -1},
 	//{ "dolphin", NULL, NULL, 		0, 	  1, 	      1, 	   0,	      1,	 -1},
