@@ -23,7 +23,7 @@ static const char col_cyan[]        = "#303030"; /*RED: af0000*/ /*F7F751*/ /*21
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 }, /*col_gray2*/
-	[SchemeSel]  = { col_gray3, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_gray3, col_cyan,  "#f2f2f2"  },
 };
 
 /* tagging */
@@ -95,7 +95,7 @@ static const char *ss[] = {"/home/jules/.scripts/screenshotsel", NULL};
 static const char *misato[] = {"feh", "/home/jules/Pictures/misato", NULL};
 static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", NULL };
 static const char *music[] = {"st", "-e", "rmpc", NULL};
-static const char *rss[] = {"st", "-e", "newsboat", NULL};
+static const char *rss[] = {"alacritty", "-e", "newsboat", NULL};
 //static const char *mail[] = {"st", "-e", "neomutt", NULL};
 static const char *mail[] = {"alacritty", "-e", "weechat", NULL};
 static const char *findsong[] = {"/home/jules/.scripts/findsong", NULL};
