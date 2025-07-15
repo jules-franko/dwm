@@ -5,10 +5,10 @@
 static const int swallowfloating = 1;
 static const unsigned int borderpx  = 3; /*2*/       /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
+static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
 static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
+static const unsigned int gappov    = 30;       /* vert outer gap between windows and screen edge */
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -28,13 +28,13 @@ static const char *colors[][3]      = {
 	//[SchemeSel]  = { col_gray3, col_cyan,  col_gray1  },
 	//[SchemeSel]  = { "#424242", "#89a969",  "#89a969"  },
         //[SchemeSel]  = { "#424242", "#ff4b4c",  "#ff4b4c"  },
-        [SchemeSel]  = { col_gray3, "#005577",  "#d16614"  },
+        [SchemeSel]  = { col_gray3, "#005577",  "#cc241d"  },
 };
 
 /* tagging */
 //static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
-//static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "0" };
-static const char *tags[] = { "[]", "[]", "[]", "[]", "[]", "[]", "[]", "[]", "[9]" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+//static const char *tags[] = { "[]", "[]", "[]", "[]", "[]", "[]", "[]", "[]", "[9]" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -93,25 +93,25 @@ static const char *thunarcmd[]  = { "alacritty", "-t", "ranger", "-e", "ranger",
 //static const char *thunarcmd[]  = { "alacritty", "-e", "ranger", NULL };
 static const char *thunarcmd2[]  = { "thunar", NULL };
 static const char *librewolfcmd[]  = { "librewolf", NULL };
-static const char *changewall[]  = { "/home/kana/.scripts/wallchanger.sh", NULL };
+static const char *changewall[]  = { "wallchanger.sh", NULL };
 static const char *bup[]  = { "brightnessctl", "set", "+2%", NULL };
 static const char *bdown[]  = { "brightnessctl", "set", "2%-", NULL };
 static const char *vup[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
 static const char *vdown[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
 //static const char *ss[] = {"flameshot", "gui", NULL};
-static const char *ss[] = {"/home/kana/.scripts/screenshotsel", NULL};
+static const char *ss[] = {"screenshotsel", NULL};
 static const char *misato[] = {"feh", "/home/kana/Pictures/misato", NULL};
 static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", NULL };
 static const char *music[] = {"st", "-e", "ncmpcpp", NULL};
 static const char *rss[] = {"alacritty", "-e", "newsboat", NULL};
 //static const char *mail[] = {"st", "-e", "neomutt", NULL};
 static const char *mail[] = {"alacritty", "-e", "weechat", NULL};
-static const char *findsong[] = {"/home/kana/.scripts/findsong", NULL};
-static const char *imageview[] = {"/home/kana/.scripts/imageview", NULL};
-static const char *killprocess[] = {"/home/kana/.scripts/killprocess", NULL};
-static const char *playvideo[] = {"/home/kana/.scripts/playvideo", NULL};
-static const char *passmenu[] = {"/home/kana/.scripts/passmenu", NULL};
-static const char *switchoutput[] = {"/home/kana/.scripts/switchoutput", NULL};
+static const char *findsong[] = {"findsong", NULL};
+static const char *imageview[] = {"imageview", NULL};
+static const char *killprocess[] = {"killprocess", NULL};
+static const char *playvideo[] = {"playvideo", NULL};
+static const char *passmenu[] = {"passmenu", NULL};
+static const char *switchoutput[] = {"switchoutput", NULL};
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -137,6 +137,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = ( const char*[] ){ "mpc", "toggle", NULL } } },
 	{ MODKEY,                       XK_c,      spawn,          {.v = ( const char*[] ){ "st", "-e", "calc", NULL } } },
 	//{ MODKEY,                       XK_l,      spawn,          {.v = ( const char*[] ){ "st", "-e", "vim", "/home/kana/suckless/dwm/config.h", NULL } } },
+	{ MODKEY,                       XK_BackSpace,      spawn,          {.v = ( const char*[] ){ "dwmactions", NULL } } },
 	{ 0,                            XF86XK_MonBrightnessUp,    spawn,          {.v = bup } },
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn,          {.v = bdown } },
 	{ 0,                            XF86XK_AudioRaiseVolume,   spawn,          {.v = vup } },
@@ -203,10 +204,14 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} },
 	{ 0, XF86XK_AudioPrev,                         spawn,                  {.v = (const char*[]){ "mpc", "prev", NULL } } },
 	{ 0, XF86XK_AudioNext,                         spawn,                  {.v = (const char*[]){ "mpc", "next", NULL } } },
+	{ MODKEY|ShiftMask,             XK_bracketright,spawn,                  {.v = (const char*[]){ "mpc", "next", NULL } } },
+	{ MODKEY|ShiftMask,             XK_bracketleft,spawn,                  {.v = (const char*[]){ "mpc", "prev", NULL } } },
 	{ 0, XF86XK_AudioPause,                        spawn,                  {.v = (const char*[]){ "mpc", "pause", NULL } } },
 	{ 0, XF86XK_AudioPlay,                         spawn,                  {.v = (const char*[]){ "mpc", "play", NULL } } },
 	{ 0, XF86XK_AudioStop,                         spawn,                  {.v = (const char*[]){ "mpc", "stop", NULL } } },
 	{ 0, XF86XK_AudioRewind,                       spawn,                  {.v = (const char*[]){ "mpc", "seek", "-10", NULL } } },
+	{ MODKEY,		        XK_bracketleft,spawn,                  {.v = (const char*[]){ "mpc", "seek", "-10", NULL } } },
+	{ MODKEY,		        XK_bracketright,spawn,                  {.v = (const char*[]){ "mpc", "seek", "+10", NULL } } },
 	{ 0, XF86XK_AudioForward,                      spawn,                  {.v = (const char*[]){ "mpc", "seek", "+10", NULL } } },
 	{ 0, XF86XK_AudioMedia,                        spawn,                  {.v = (const char*[]){ "st",  "-e", "ncmpcpp", NULL } } },
 	{ 0, XF86XK_AudioMicMute,                      spawn,                  SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
