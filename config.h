@@ -13,9 +13,7 @@ static const int smartgaps          = 0;        /* 1 means no outer gap when the
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 //static const char *fonts[]          = { "xos4 terminus:size=15","fontawesome" };
-//static const char *fonts[]          = { "Ubuntu Mono:size=15","fontawesome" };
 static const char *fonts[]          = { "monospace:size=11","fontawesome" };
-//static const char *fonts[]          = { "FiraCode:size=12" };
 static const char dmenufont[]       = "terminus:size=15";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -25,9 +23,6 @@ static const char col_cyan[]        = "#303030"; /*RED: af0000*/ /*F7F751*/ /*21
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 }, /*col_gray2*/
-	//[SchemeSel]  = { col_gray3, col_cyan,  col_gray1  },
-	//[SchemeSel]  = { "#424242", "#89a969",  "#89a969"  },
-        //[SchemeSel]  = { "#424242", "#ff4b4c",  "#ff4b4c"  },
         [SchemeSel]  = { col_gray3, "#005577",  "#cc241d"  },
 };
 
@@ -46,16 +41,9 @@ static const Rule rules[] = {
 	{ NULL,      NULL,     "stt",    	 0,        1,          1,           1,         1, 	 -1},
 	//{ "Thunar",      NULL,  NULL,    	 0,        1,          1,           0,         0, 	 -1},
 	{ NULL,      NULL,     "ranger", 	 0, 	   1, 	       1,  	    1,	       0,	 -1},
-	//{ NULL,      NULL,     "ranger", 	 0, 	   0, 	       0,  	    0,	       1,	 -1},
-	//{ "mpv",     NULL,     NULL,   		 0, 	   1, 	       1,  	    1,	       0,	 -1},
-	//{ NULL,      NULL,     "nsxiv",   		 0, 	   1, 	       1,  	    0,	       0,	 -1},
-	//{ "firefox", NULL, NULL, 		2, 	  0, 	      0, 	   0,	      0,	 -1},
-	//{ "Steam", NULL, NULL, 			6, 	  0, 	      0, 	   0,	      0,	 -1},
-	//{ "dolphin", NULL, NULL, 		0, 	  1, 	      1, 	   0,	      1,	 -1},
 	{ NULL, NULL, "ncmpcpp", 		0, 	  1, 	      1, 	   1,	      1,	 -1},
-	{ NULL, NULL, "rmpc", 		0, 	  1, 	      1, 	   1,	      1,	 -1},
+	{ NULL, NULL, "rmpc", 			0, 	  1, 	      1, 	   1,	      1,	 -1},
 	{ NULL, NULL, "newsboat", 		0, 	  0, 	      0, 	   1,	      0,	 -1},
-	//{ NULL, NULL, "weechat",		1>>7,	  0,          0,           0,         0,         -1},
 };
 
 /* layout(s) */
@@ -87,10 +75,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray1, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *termcmdsmall[]  = { "alacritty", "-t", "stt", NULL };
-//static const char *thunarcmd[]  = { "st", "-t", "Ranger", "-e", "ranger", NULL };
-//static const char *thunarcmd[]  = { "st", "-e", "ranger", NULL };
 static const char *thunarcmd[]  = { "alacritty", "-t", "ranger", "-e", "ranger", NULL };
-//static const char *thunarcmd[]  = { "alacritty", "-e", "ranger", NULL };
 static const char *thunarcmd2[]  = { "thunar", NULL };
 static const char *librewolfcmd[]  = { "librewolf", NULL };
 static const char *changewall[]  = { "wallchanger.sh", NULL };
@@ -98,13 +83,11 @@ static const char *bup[]  = { "brightnessctl", "set", "+2%", NULL };
 static const char *bdown[]  = { "brightnessctl", "set", "2%-", NULL };
 static const char *vup[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
 static const char *vdown[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
-//static const char *ss[] = {"flameshot", "gui", NULL};
 static const char *ss[] = {"screenshotsel", NULL};
 static const char *misato[] = {"feh", "/home/kana/Pictures/misato", NULL};
 static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", NULL };
 static const char *music[] = {"st", "-e", "ncmpcpp", NULL};
 static const char *rss[] = {"alacritty", "-e", "newsboat", NULL};
-//static const char *mail[] = {"st", "-e", "neomutt", NULL};
 static const char *mail[] = {"alacritty", "-e", "weechat", NULL};
 static const char *findsong[] = {"findsong", NULL};
 static const char *imageview[] = {"imageview", NULL};
@@ -123,7 +106,7 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termcmdsmall } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = changewall } },
 	{ MODKEY,                       XK_s,      spawn,          {.v = ss } },
-	//{ MODKEY,                       XK_s,      spawn,          SHCMD("home/kana/.scripts/screenshotsel") },
+	{ MODKEY,                       XK_x,      spawn,          {.v = ( const char*[] ){"notes", NULL} } },
 	{ MODKEY,                       XK_y,      spawn,          {.v = misato } },
 	{ MODKEY,                       XK_m,      spawn,          {.v = music } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = rss } },
@@ -132,11 +115,10 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_u,      spawn,          {.v = imageview } },
 	{ MODKEY,                       XK_y,      spawn,          {.v = passmenu } },
 	{ MODKEY|ControlMask,           XK_q,      spawn,          {.v = killprocess } },
-	{ MODKEY,                       XK_v,      spawn,          {.v = playvideo } },
 	{ MODKEY|ControlMask,           XK_s,      spawn,          {.v = switchoutput } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = ( const char*[] ){ "mpc", "toggle", NULL } } },
-	{ MODKEY,                       XK_c,      spawn,          {.v = ( const char*[] ){ "st", "-e", "calc", NULL } } },
-	//{ MODKEY,                       XK_l,      spawn,          {.v = ( const char*[] ){ "st", "-e", "vim", "/home/kana/suckless/dwm/config.h", NULL } } },
+	{ MODKEY,                       XK_c,      spawn,          {.v = ( const char*[] ){ "alacritty", "-e", "calcurse", NULL } } },
+	{ MODKEY,                       XK_v,      spawn,          {.v = ( const char*[] ){ "alacritty", "-e", "nvim", NULL } } },
 	{ MODKEY,                       XK_BackSpace,      spawn,          {.v = ( const char*[] ){ "dwmactions", NULL } } },
 	{ 0,                            XF86XK_MonBrightnessUp,    spawn,          {.v = bup } },
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn,          {.v = bdown } },
@@ -147,8 +129,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_Left,      setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_Right,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
@@ -163,13 +145,18 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,			XK_Right,  viewnext,       {0} },
-	{ MODKEY,			XK_Left,   viewprev,       {0} },
-	{ MODKEY|ShiftMask,		XK_Right,  tagtonext,      {0} },
-	{ MODKEY|ShiftMask,		XK_Left,   tagtoprev,      {0} },
+	//{ MODKEY,			XK_Right,  viewnext,       {0} },
+	//{ MODKEY,			XK_Left,   viewprev,       {0} },
+	//{ MODKEY|ShiftMask,		XK_Right,  tagtonext,      {0} },
+	//{ MODKEY|ShiftMask,		XK_Left,   tagtoprev,      {0} },
+	{ MODKEY,			XK_l,  viewnext,       {0} },
+	{ MODKEY,			XK_h,   viewprev,       {0} },
+	{ MODKEY|ShiftMask,		XK_l,  tagtonext,      {0} },
+	{ MODKEY|ShiftMask,		XK_h,   tagtoprev,      {0} },
+
 	/*Vanity Gaps*/
-	{ MODKEY|ShiftMask,                       XK_h,      incrgaps,       {.i = +1 } },
-	{ MODKEY|ShiftMask,                       XK_l,      incrgaps,       {.i = -1 } },
+	{ MODKEY|ControlMask,                       XK_h,      incrgaps,       {.i = +1 } },
+	{ MODKEY|ControlMask,                       XK_l,      incrgaps,       {.i = -1 } },
 /*{ MODKEY|Mod4Mask|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_l,      incrogaps,      {.i = -1 } },
 	{ MODKEY|Mod4Mask|ControlMask,  XK_h,      incrigaps,      {.i = +1 } },
