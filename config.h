@@ -13,7 +13,8 @@ static const int smartgaps          = 0;        /* 1 means no outer gap when the
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 //static const char *fonts[]          = { "xos4 terminus:size=15","fontawesome" };
-static const char *fonts[]          = { "monospace:size=11","fontawesome" };
+//static const char *fonts[]          = { "monospace:size=11", "NotoColorEmoji", "fontawesome" };
+static const char *fonts[]          = { "monospace:size=11", "NotoColorEmoji"};
 static const char dmenufont[]       = "terminus:size=15";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -40,8 +41,8 @@ static const Rule rules[] = {
 	{ "St",      NULL,     NULL,    	 0,        0,          0,           1,         1, 	 -1},
 	{ NULL,      NULL,     "stt",    	 0,        1,          1,           1,         1, 	 -1},
 	//{ "Thunar",      NULL,  NULL,    	 0,        1,          1,           0,         0, 	 -1},
-	{ NULL,      NULL,     "ranger", 	 0, 	   1, 	       1,  	    1,	       0,	 -1},
-	{ NULL, NULL, "ncmpcpp", 		0, 	  1, 	      1, 	   1,	      1,	 -1},
+	{ NULL, NULL, "ranger", 	 	0, 	   1, 	       1,  	    1,	       0,	 -1},
+	{ NULL, NULL, "ncmpcpp", 		0, 	  1, 	      1, 	   0,	      0,	 -1},
 	{ NULL, NULL, "rmpc", 			0, 	  1, 	      1, 	   1,	      1,	 -1},
 	{ NULL, NULL, "newsboat", 		0, 	  0, 	      0, 	   1,	      0,	 -1},
 };
@@ -81,12 +82,10 @@ static const char *librewolfcmd[]  = { "librewolf", NULL };
 static const char *changewall[]  = { "wallchanger.sh", NULL };
 static const char *bup[]  = { "brightnessctl", "set", "+2%", NULL };
 static const char *bdown[]  = { "brightnessctl", "set", "2%-", NULL };
-static const char *vup[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
-static const char *vdown[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
 static const char *ss[] = {"screenshotsel", NULL};
 static const char *misato[] = {"feh", "/home/kana/Pictures/misato", NULL};
 static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", NULL };
-static const char *music[] = {"st", "-e", "ncmpcpp", NULL};
+static const char *music[] = {"alacritty", "-e", "ncmpcpp;", "kill", "-45", "$(pidof", "dwmblocks)", NULL};
 static const char *rss[] = {"alacritty", "-e", "newsboat", NULL};
 static const char *mail[] = {"alacritty", "-e", "weechat", NULL};
 static const char *findsong[] = {"findsong", NULL};
@@ -108,22 +107,26 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_s,      spawn,          {.v = ss } },
 	{ MODKEY,                       XK_x,      spawn,          {.v = ( const char*[] ){"notes", NULL} } },
 	{ MODKEY,                       XK_y,      spawn,          {.v = misato } },
-	{ MODKEY,                       XK_m,      spawn,          {.v = music } },
+	{ MODKEY,                       XK_m,      spawn,          SHCMD("alacritty -e ncmpcpp; kill -45 $(pidof dwmblocks)") },
 	{ MODKEY,                       XK_n,      spawn,          {.v = rss } },
 	{ MODKEY,                       XK_g,      spawn,          {.v = mail } },
 	{ MODKEY,                       XK_o,      spawn,          {.v = findsong } },
-	{ MODKEY,                       XK_u,      spawn,          {.v = imageview } },
-	{ MODKEY,                       XK_y,      spawn,          {.v = passmenu } },
+	//{ MODKEY,                       XK_u,      spawn,          {.v = imageview } },
+	{ MODKEY,                       XK_u,      spawn,          {.v = passmenu } },
 	{ MODKEY|ControlMask,           XK_q,      spawn,          {.v = killprocess } },
 	{ MODKEY|ControlMask,           XK_s,      spawn,          {.v = switchoutput } },
-	{ MODKEY,                       XK_p,      spawn,          {.v = ( const char*[] ){ "mpc", "toggle", NULL } } },
+	//{ MODKEY,                       XK_p,      spawn,          {.v = ( const char*[] ){ "mpc", "toggle", NULL } } },
+	{ MODKEY,                       XK_p,      spawn,          SHCMD("mpc toggle; kill -45 $(pidof dwmblocks)") },
 	{ MODKEY,                       XK_c,      spawn,          {.v = ( const char*[] ){ "alacritty", "-e", "calcurse", NULL } } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = ( const char*[] ){ "alacritty", "-e", "nvim", NULL } } },
+	{ MODKEY,                       XK_y,      spawn,          {.v = ( const char*[] ){ "alacritty", "-e", "neomutt", NULL } } },
 	{ MODKEY,                       XK_BackSpace,      spawn,          {.v = ( const char*[] ){ "dwmactions", NULL } } },
 	{ 0,                            XF86XK_MonBrightnessUp,    spawn,          {.v = bup } },
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn,          {.v = bdown } },
-	{ 0,                            XF86XK_AudioRaiseVolume,   spawn,          {.v = vup } },
-	{ 0,                            XF86XK_AudioLowerVolume,   spawn,          {.v = vdown } },
+	//{ 0,                            XF86XK_AudioRaiseVolume,   spawn,          {.v = vup } },
+	{ 0,                            XF86XK_AudioRaiseVolume,   spawn,          SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%; kill -44 $(pidof dwmblocks)") },
+	{ 0,                            XF86XK_AudioLowerVolume,   spawn,          SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%; kill -44 $(pidof dwmblocks)") },
+	//{ 0,                            XF86XK_AudioLowerVolume,   spawn,          {.v = vdown } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -191,14 +194,14 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} },
 	{ 0, XF86XK_AudioPrev,                         spawn,                  {.v = (const char*[]){ "mpc", "prev", NULL } } },
 	{ 0, XF86XK_AudioNext,                         spawn,                  {.v = (const char*[]){ "mpc", "next", NULL } } },
-	{ MODKEY|ShiftMask,             XK_bracketright,spawn,                  {.v = (const char*[]){ "mpc", "next", NULL } } },
-	{ MODKEY|ShiftMask,             XK_bracketleft,spawn,                  {.v = (const char*[]){ "mpc", "prev", NULL } } },
+	{ MODKEY|ShiftMask,             XK_bracketright,spawn,                 SHCMD("mpc next; kill -45 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,             XK_bracketleft,spawn,                  SHCMD("mpc prev; kill -45 $(pidof dwmblocks)") },
+	{ MODKEY,		        XK_bracketleft,spawn,                  SHCMD("mpc seek -10; kill -45 $(pidof dwmblocks)") },
+	{ MODKEY,		        XK_bracketright,spawn,                 SHCMD("mpc seek +10; kill -45 $(pidof dwmblocks)") },
 	{ 0, XF86XK_AudioPause,                        spawn,                  {.v = (const char*[]){ "mpc", "pause", NULL } } },
 	{ 0, XF86XK_AudioPlay,                         spawn,                  {.v = (const char*[]){ "mpc", "play", NULL } } },
 	{ 0, XF86XK_AudioStop,                         spawn,                  {.v = (const char*[]){ "mpc", "stop", NULL } } },
 	{ 0, XF86XK_AudioRewind,                       spawn,                  {.v = (const char*[]){ "mpc", "seek", "-10", NULL } } },
-	{ MODKEY,		        XK_bracketleft,spawn,                  {.v = (const char*[]){ "mpc", "seek", "-10", NULL } } },
-	{ MODKEY,		        XK_bracketright,spawn,                  {.v = (const char*[]){ "mpc", "seek", "+10", NULL } } },
 	{ 0, XF86XK_AudioForward,                      spawn,                  {.v = (const char*[]){ "mpc", "seek", "+10", NULL } } },
 	{ 0, XF86XK_AudioMedia,                        spawn,                  {.v = (const char*[]){ "st",  "-e", "ncmpcpp", NULL } } },
 	{ 0, XF86XK_AudioMicMute,                      spawn,                  SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
