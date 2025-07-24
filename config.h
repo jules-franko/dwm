@@ -1,6 +1,9 @@
 /* See LICENSE file for copyright and license details. */
 #include "X11/XF86keysym.h"
 
+/*MACROS*/
+#define TERMINAL "st"
+
 /* appearance */
 static const int swallowfloating = 1;
 static const unsigned int borderpx  = 3; /*2*/       /* border pixel of windows */
@@ -23,18 +26,47 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#303030"; /*RED: af0000*/ /*F7F751*/ /*217f42 Green*/ /*005577*/ /*FFFF55*/
+static const char main_color[]      = "#cc241d";
+//static const char main_color[]      = "#1692d0";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 }, /*col_gray2*/
+	//[SchemeNorm] = { col_gray3, col_gray1, col_gray2 }, /*col_gray2*/
 	//[SchemeSel]  = { col_gray3, "#005577",  "#cc241d"  },
-        [SchemeSel]  = { col_gray3, "#cc241d", "#cc241d" },
+	//[SchemeSel]  = { col_gray3, "#cc241d", "#cc241d" },
+	//[SchemeStatus]  = { col_gray3, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
+	//[SchemeTagsSel]  = { col_gray4, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
+	//[SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+	//[SchemeInfoSel]  = { col_gray4, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
+	//[SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+
+	//[SchemeNorm] = { col_gray3, col_gray1, col_gray2 }, /*col_gray2*/
+	//[SchemeSel]  = { col_gray3, "#cc241d", "#cc241d" },
+	//[SchemeStatus]  = { col_gray3, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
+	//[SchemeTagsSel]  = { "#cc241d", col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
+	//[SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+	//[SchemeInfoSel]  = { col_gray4, col_gray1,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
+	//[SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+	
+	//[SchemeNorm] = { col_gray3, col_gray1, col_gray2 }, /*col_gray2*/
+        //[SchemeSel]  = { col_gray3, main_color, main_color},
+	//[SchemeStatus]  = { col_gray3, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
+	//[SchemeTagsSel]  = { main_color, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
+	//[SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+	//[SchemeInfoSel]  = { col_gray4, col_gray1,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
+	//[SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+								   //
+	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 }, /*col_gray2*/
+        [SchemeSel]  = { col_gray3, main_color, main_color},
+	[SchemeStatus]  = { col_gray3, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
+	[SchemeTagsSel]  = { col_gray1, "#dd6e0d",  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
+	[SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+	[SchemeInfoSel]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
+	[SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
 /* tagging */
-//static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
 //static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
-static const char *tags[] = { "", "", "", "", "", "", "", "", "", "0" };
-//static const char *tags[] = { "[]", "[]", "[]", "[]", "[]", "[]", "[]", "[]", "[9]" };
+static const char *tags[] = { "󰣇", "󰈹", "󰝚", "󰭹", "󰸼", "", "", "", "", "0" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -44,7 +76,6 @@ static const Rule rules[] = {
 	/* class     instance  title           tags mask  iscentered  isfloating  isterminal  noswallow  monitor */
 	{ "St",      NULL,     NULL,    	 0,        0,          0,           1,         1, 	 -1},
 	{ NULL,      NULL,     "stt",    	 0,        1,          1,           1,         1, 	 -1},
-	//{ "Thunar",      NULL,  NULL,    	 0,        1,          1,           0,         0, 	 -1},
 	{ NULL, NULL, "ranger", 	 	0, 	   1, 	       1,  	    1,	       0,	 -1},
 	{ NULL, NULL, "ncmpcpp", 		0, 	  1, 	      1, 	   0,	      0,	 -1},
 	{ NULL, NULL, "rmpc", 			0, 	  1, 	      1, 	   1,	      1,	 -1},
@@ -59,7 +90,8 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
+	//{ "[]=",      tile },    /* first entry is default */
+	{ "",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
@@ -101,17 +133,18 @@ static const char *switchoutput[] = {"switchoutput", NULL};
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
+	{ MODKEY,                       XK_F1,     spawn,          SHCMD( TERMINAL " -e nvim $HOME/.local/src/dwm/config.h") },
 	{ MODKEY,                       XK_a,      spawn,          {.v = roficmd } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = thunarcmd } },
 	{ MODKEY,                       XK_z,      spawn,          {.v = thunarcmd2 } },
         { MODKEY,                       XK_f,      spawn,          {.v = librewolfcmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_Return, spawn,          SHCMD( TERMINAL ) },
 	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termcmdsmall } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = changewall } },
 	{ MODKEY,                       XK_s,      spawn,          {.v = ss } },
 	{ MODKEY,                       XK_x,      spawn,          {.v = ( const char*[] ){"notes", NULL} } },
 	{ MODKEY,                       XK_y,      spawn,          {.v = misato } },
-	{ MODKEY,                       XK_m,      spawn,          SHCMD("alacritty -e ncmpcpp; kill -45 $(pidof dwmblocks)") },
+	{ MODKEY,                       XK_m,      spawn,          SHCMD( TERMINAL " -e ncmpcpp; kill -45 $(pidof dwmblocks)") },
 	{ MODKEY,                       XK_n,      spawn,          {.v = rss } },
 	{ MODKEY,                       XK_g,      spawn,          {.v = mail } },
 	{ MODKEY,                       XK_o,      spawn,          {.v = findsong } },
@@ -121,7 +154,8 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_s,      spawn,          {.v = switchoutput } },
 	//{ MODKEY,                       XK_p,      spawn,          {.v = ( const char*[] ){ "mpc", "toggle", NULL } } },
 	{ MODKEY,                       XK_p,      spawn,          SHCMD("mpc toggle; kill -45 $(pidof dwmblocks)") },
-	{ MODKEY,                       XK_c,      spawn,          {.v = ( const char*[] ){ "alacritty", "-e", "calcurse", NULL } } },
+	//{ MODKEY,                       XK_c,      spawn,          {.v = ( const char*[] ){ "alacritty", "-e", "calcurse", NULL } } },
+	{ MODKEY,                       XK_c,      spawn,          SHCMD( TERMINAL " -e calcurse") },
 	{ MODKEY,                       XK_v,      spawn,          {.v = ( const char*[] ){ "alacritty", "-e", "nvim", NULL } } },
 	{ MODKEY,                       XK_y,      spawn,          {.v = ( const char*[] ){ "alacritty", "-e", "neomutt", NULL } } },
 	{ MODKEY,                       XK_BackSpace,      spawn,          {.v = ( const char*[] ){ "dwmactions", NULL } } },
@@ -226,5 +260,7 @@ static const Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+ 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
+ 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
 
