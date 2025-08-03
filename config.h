@@ -3,6 +3,7 @@
 
 /*MACROS*/
 #define TERMINAL "st"
+#define BROWSER "librewolf"
 
 /* appearance */
 static const int swallowfloating = 1;
@@ -21,9 +22,9 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 //static const char *fonts[]          = { "monospace:size=11", "Symbols Nerd Font:size=14", "NotoColorEmoji:size=14", "Font Awesome 6 Free Regular:size=14", "Font Awesome 6 Brands Regular:size=14", "Font Awesome v4 Compatibility:size=14"};
 static const char *fonts[]          = { "monospace:size=11", "NotoColorEmoji:size=14", "Symbols Nerd Font:size=14"};
 static const char dmenufont[]       = "terminus:size=15";
-static const char col_gray1[]       = "#222222";
+static const char col_gray1[]       = "#282828"; //222222
 static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
+static const char col_gray3[]       = "#ebdbb2"; //bbbbbb
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#303030"; /*RED: af0000*/ /*F7F751*/ /*217f42 Green*/ /*005577*/ /*FFFF55*/
 static const char main_color[]      = "#cc241d";
@@ -57,10 +58,10 @@ static const char *colors[][3]      = {
 								   //
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 }, /*col_gray2*/
         [SchemeSel]  = { col_gray3, main_color, main_color},
-	[SchemeStatus]  = { col_gray3, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-	[SchemeTagsSel]  = { col_gray1, "#dd6e0d",  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
-	[SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-	[SchemeInfoSel]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
+	[SchemeStatus]  = { "#bbbbbb", col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
+	[SchemeTagsSel]  = { col_gray1, "#d79921",  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
+	[SchemeTagsNorm]  = { "#bbbbbb", col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+	[SchemeInfoSel]  = { col_gray1, "#d79921",  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
 	[SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
@@ -74,9 +75,12 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class     instance  title           tags mask  iscentered  isfloating  isterminal  noswallow  monitor */
-	{ "St",      NULL,     NULL,    	 0,        0,          0,           1,         1, 	 -1},
+	//{ "St",      NULL,     NULL,    	 0,        0,          0,           1,         1, 	 -1},
+	{ BROWSER,   NULL,     NULL,		1 << 1,    0,          0,           0,         0,        -1},
+	{ "vesktop",   NULL,     NULL,		1 << 3,    0,          0,           0,         0,        -1},
+	{ "Spotify",   NULL,     NULL,		1 << 2,    0,          0,           0,         0,        -1},
 	{ NULL,      NULL,     "stt",    	 0,        1,          1,           1,         1, 	 -1},
-	{ NULL, NULL, "ranger", 	 	0, 	   1, 	       1,  	    1,	       0,	 -1},
+	{ NULL, NULL, "ranger", 	 	0, 	   0, 	       0,  	    1,	       0,	 -1},
 	{ NULL, NULL, "ncmpcpp", 		0, 	  1, 	      1, 	   0,	      0,	 -1},
 	{ NULL, NULL, "rmpc", 			0, 	  1, 	      1, 	   1,	      1,	 -1},
 	{ NULL, NULL, "newsboat", 		0, 	  0, 	      0, 	   1,	      0,	 -1},
@@ -135,13 +139,14 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_F1,     spawn,          SHCMD( TERMINAL " -e nvim $HOME/.local/src/dwm/config.h") },
 	{ MODKEY,                       XK_a,      spawn,          {.v = roficmd } },
-	{ MODKEY,                       XK_e,      spawn,          {.v = thunarcmd } },
+	{ MODKEY,                       XK_e,      spawn,          SHCMD( TERMINAL " -t ranger -e ranger") },
 	{ MODKEY,                       XK_z,      spawn,          {.v = thunarcmd2 } },
         { MODKEY,                       XK_f,      spawn,          {.v = librewolfcmd } },
 	{ MODKEY,                       XK_Return, spawn,          SHCMD( TERMINAL ) },
 	{ MODKEY|ControlMask,           XK_Return, spawn,          {.v = termcmdsmall } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = changewall } },
-	{ MODKEY,                       XK_s,      spawn,          {.v = ss } },
+	{ MODKEY,                       XK_s,      spawn,          SHCMD( "screenshotxclip" ) },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD( "screenshotsel" ) },
 	{ MODKEY,                       XK_x,      spawn,          {.v = ( const char*[] ){"notes", NULL} } },
 	{ MODKEY,                       XK_y,      spawn,          {.v = misato } },
 	{ MODKEY,                       XK_m,      spawn,          SHCMD( TERMINAL " -e ncmpcpp; kill -45 $(pidof dwmblocks)") },
@@ -198,7 +203,8 @@ static const Key keys[] = {
 	/*Vanity Gaps*/
 	{ MODKEY|ControlMask,                       XK_h,      incrgaps,       {.i = +1 } },
 	{ MODKEY|ControlMask,                       XK_l,      incrgaps,       {.i = -1 } },
-/*{ MODKEY|Mod4Mask|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_a,      togglegaps,     {0} },
+	/*{ MODKEY|Mod4Mask|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_l,      incrogaps,      {.i = -1 } },
 	{ MODKEY|Mod4Mask|ControlMask,  XK_h,      incrigaps,      {.i = +1 } },
 	{ MODKEY|Mod4Mask|ControlMask,  XK_l,      incrigaps,      {.i = -1 } },
