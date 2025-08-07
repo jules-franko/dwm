@@ -25,13 +25,17 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][SchemeN][3] = {
 		/*               fg         bg         border   */
+	{ /* gruvbox */
+		[SchemeNorm] = { "#bdae93", "#282828", "#504945" },
+		[SchemeSel]  = { "#fbf1c7", "#83a598", "#83a598"  },
+	},
 	{ /* default */
 		[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 		[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 	},
-	{ /* gruvbox */
-		[SchemeNorm] = { "#bdae93", "#282828", "#504945" },
-		[SchemeSel]  = { "#fbf1c7", "#83a598", "#83a598"  },
+	{ /* default */
+		[SchemeNorm] = { "#f3edf4", col_gray1,  col_gray2 },
+		[SchemeSel]  = { "#8c5d99", "#f3edf4",  "#8c5d99"  },
 	},
 };
 
@@ -47,9 +51,10 @@ static const Rule rules[] = {
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ BROWSER,   NULL,     NULL,           1 << 1,    0,          0,           0,        -1 },
 	{ "goofcord",NULL,     NULL,           1 << 3,    0,          0,           0,        -1 },
-	{ "Spotify", NULL,     NULL,           1 << 4,    0,          0,           0,        -1 },
-	{ "Steam",   NULL,     NULL,           1 << 6,    0,          0,           0,        -1 },
+	{ "Spotify", NULL,     NULL,           1 << 2,    0,          0,           0,        -1 },
+	{ "steam",   NULL,     NULL,           1 << 4,    0,          0,           0,        -1 },
 	{ NULL,      NULL,     "ncmpcpp",      0,         1,          1,           0,        -1 },
+	{ NULL,      NULL,     "ranger",       0,         0,          1,           1,        -1 },
 	{ NULL,      NULL,     "stt",      0,         1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
