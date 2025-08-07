@@ -1,23 +1,35 @@
 --- dwm.c
 +++ dwm.c
-@@ -729,17 +729,17 @@ drawbar(Monitor *m)
- 		x += w;
- 	}
- 	w = blw = TEXTW(m->ltsymbol);
--	drw_setscheme(drw, scheme[SchemeNorm]);
-+	drw_setscheme(drw, scheme[SchemeTagsNorm]);
- 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+@@ -1678,13 +1683,17 @@ tagmon(const Arg *arg)
+ void
+ tile(Monitor *m)
+ {
+-	unsigned int i, n, h, mw, my, ty;
++	unsigned int i, n, h, mw, my, ty, bw;
+ 	Client *c;
  
- 	if ((w = m->ww - tw - x) > bh) {
- 		if (m->sel) {
--			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
-+			drw_setscheme(drw, scheme[m == selmon ? SchemeInfoSel : SchemeInfoNorm]);
- 			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
- 			if (m->sel->isfloating)
- 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
+ 	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+ 	if (n == 0)
+ 		return;
+ 
++	if (n == 1)
++		bw = 0;
++	else
++		bw = borderpx;
+ 	if (n > m->nmaster)
+ 		mw = m->nmaster ? m->ww * m->mfact : 0;
+ 	else
+@@ -1692,11 +1701,11 @@ tile(Monitor *m)
+ 	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+ 		if (i < m->nmaster) {
+ 			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
+-			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
++			resize(c, m->wx, m->wy + my, mw - 2*bw, h - 2*bw, bw, 0);
+ 			my += HEIGHT(c);
  		} else {
--			drw_setscheme(drw, scheme[SchemeNorm]);
-+			drw_setscheme(drw, scheme[SchemeInfoNorm]);
- 			drw_rect(drw, x, 0, w, bh, 1, 1);
+ 			h = (m->wh - ty) / (n - i);
+-			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
++			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - 2*bw, h - 2*bw, bw, 0);
+ 			ty += HEIGHT(c);
  		}
- 	}
+ }
