@@ -25,13 +25,13 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][SchemeN][3] = {
 		/*               fg         bg         border   */
-	{ /* dark */
+	{ /* default */
 		[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 		[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 	},
-	{ /* light */
-		[SchemeNorm] = { col_gray2, col_gray4, col_gray3 },
-		[SchemeSel]  = { col_gray1, col_cyan,  col_cyan  },
+	{ /* gruvbox */
+		[SchemeNorm] = { "#bdae93", "#282828", "#504945" },
+		[SchemeSel]  = { "#fbf1c7", "#83a598", "#83a598"  },
 	},
 };
 
@@ -49,6 +49,8 @@ static const Rule rules[] = {
 	{ "goofcord",NULL,     NULL,           1 << 3,    0,          0,           0,        -1 },
 	{ "Spotify", NULL,     NULL,           1 << 4,    0,          0,           0,        -1 },
 	{ "Steam",   NULL,     NULL,           1 << 6,    0,          0,           0,        -1 },
+	{ NULL,      NULL,     "ncmpcpp",      0,         1,          1,           0,        -1 },
+	{ NULL,      NULL,     "stt",      0,         1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
@@ -119,8 +121,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_Left,      setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_Right,      setmfact,       {.f = +0.05} },
 	{ MODKEY|Mod4Mask,              XK_h,      incrgaps,       {.i = +1 } },
 	{ MODKEY|Mod4Mask,              XK_l,      incrgaps,       {.i = -1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } },
@@ -137,16 +139,16 @@ static const Key keys[] = {
 	{ MODKEY|Mod4Mask,              XK_o,      incrohgaps,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_y,      incrovgaps,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_o,      incrovgaps,     {.i = -1 } },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[4]} },
+	//{ MODKEY,                       XK_w,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY|ControlMask,           XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ControlMask,           XK_f,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY,                       XK_w,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
@@ -154,10 +156,10 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_n,      setscheme,      {.i = +1 } },
-	{ MODKEY,                       XK_Right,  viewnext,       {0} },
-	{ MODKEY,                       XK_Left,   viewprev,       {0} },
-	{ MODKEY|ShiftMask,             XK_Right,  tagtonext,      {0} },
-	{ MODKEY|ShiftMask,             XK_Left,   tagtoprev,      {0} },
+	{ MODKEY,                       XK_l,      viewnext,       {0} },
+	{ MODKEY,                       XK_h,      viewprev,       {0} },
+	{ MODKEY|ShiftMask,             XK_l,  tagtonext,      {0} },
+	{ MODKEY|ShiftMask,             XK_h,   tagtoprev,      {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
