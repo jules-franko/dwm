@@ -1,35 +1,11 @@
---- dwm.c
-+++ dwm.c
-@@ -1678,13 +1683,17 @@ tagmon(const Arg *arg)
- void
- tile(Monitor *m)
- {
--	unsigned int i, n, h, mw, my, ty;
-+	unsigned int i, n, h, mw, my, ty, bw;
- 	Client *c;
- 
- 	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
- 	if (n == 0)
- 		return;
- 
-+	if (n == 1)
-+		bw = 0;
-+	else
-+		bw = borderpx;
- 	if (n > m->nmaster)
- 		mw = m->nmaster ? m->ww * m->mfact : 0;
- 	else
-@@ -1692,11 +1701,11 @@ tile(Monitor *m)
- 	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
- 		if (i < m->nmaster) {
- 			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
--			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
-+			resize(c, m->wx, m->wy + my, mw - 2*bw, h - 2*bw, bw, 0);
- 			my += HEIGHT(c);
- 		} else {
- 			h = (m->wh - ty) / (n - i);
--			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
-+			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - 2*bw, h - 2*bw, bw, 0);
- 			ty += HEIGHT(c);
- 		}
- }
+--- dwm.c	2021-02-27 20:04:32.030570909 -0600
++++ dwm.c	2021-03-16 16:41:21.468077151 -0500
+@@ -719,6 +719,8 @@ drawbar(Monitor *m)
+ 		w = TEXTW(tags[i]);
+ 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
+ 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
++		if (ulineall || m->tagset[m->seltags] & 1 << i) /* if there are conflicts, just move these lines directly underneath both 'drw_setscheme' and 'drw_text' :) */
++			drw_rect(drw, x + ulinepad, bh - ulinestroke - ulinevoffset, w - (ulinepad * 2), ulinestroke, 1, 0);
+ 		if (occ & 1 << i)
+ 			drw_rect(drw, x + boxs, boxs, boxw, boxw,
+ 				m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
