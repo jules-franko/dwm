@@ -17,6 +17,7 @@ static const int smartgaps          = 0;        /* 1 means no outer gap when the
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=11", "Symbols Nerd Font:size=14", "NotoColorEmoji:size=14", "Font Awesome 6 Free Regular:size=14", "Font Awesome 6 Brands Regular:size=14", "Font Awesome v4 Compatibility:size=14"};
+//static const char *fonts[]          = { "xos4 terminus:size=13", "Symbols Nerd Font:size=14", "NotoColorEmoji:size=14", "Font Awesome 6 Free Regular:size=14", "Font Awesome 6 Brands Regular:size=14", "Font Awesome v4 Compatibility:size=14"};
 static const char dmenufont[]       = "monospace:size=11";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -111,6 +112,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_u,      spawn,          SHCMD( "passmenu") },
 	{ MODKEY|ControlMask,           XK_q,      spawn,          SHCMD( "killprocess") },
 	{ MODKEY|ControlMask,           XK_s,      spawn,          SHCMD( "switchoutput") },
+	{ MODKEY|ControlMask,           XK_o,      spawn,          SHCMD( "xsecurelock") },
+	{ MODKEY|ControlMask,           XK_w,      spawn,          SHCMD( "setrandomwallpaper") },
 	{ MODKEY,                       XK_p,      spawn,          SHCMD("mpc toggle; kill -45 $(pidof dwmblocks)") },
 	{ MODKEY,                       XK_c,      spawn,          SHCMD( TERMINAL " -e calcurse") },
 	{ MODKEY,                       XK_v,      spawn,          {.v = ( const char*[] ){ "alacritty", "-e", "nvim", NULL } } },
@@ -128,8 +131,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_Left,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_Right,      setmfact,       {.f = +0.05} },
-	{ MODKEY|Mod4Mask,              XK_h,      incrgaps,       {.i = +1 } },
-	{ MODKEY|Mod4Mask,              XK_l,      incrgaps,       {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_h,      incrgaps,       {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_l,      incrgaps,       {.i = -1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_l,      incrogaps,      {.i = -1 } },
 	{ MODKEY|Mod4Mask|ControlMask,  XK_h,      incrigaps,      {.i = +1 } },
