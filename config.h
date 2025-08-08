@@ -16,7 +16,8 @@ static const unsigned int gappov    = 30;       /* vert outer gap between window
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=11", "Symbols Nerd Font:size=14", "NotoColorEmoji:size=14", "Font Awesome 6 Free Regular:size=14", "Font Awesome 6 Brands Regular:size=14", "Font Awesome v4 Compatibility:size=14"};
+static const char *fonts[]          = { "JetBrainsMono:size=11.5", "Symbols Nerd Font:size=14", "NotoColorEmoji:size=14"};
+//static const char *fonts[]          = { "monospace:size=11", "Symbols Nerd Font:size=14", "NotoColorEmoji:size=14"};
 //static const char *fonts[]          = { "xos4 terminus:size=13", "Symbols Nerd Font:size=14", "NotoColorEmoji:size=14", "Font Awesome 6 Free Regular:size=14", "Font Awesome 6 Brands Regular:size=14", "Font Awesome v4 Compatibility:size=14"};
 static const char dmenufont[]       = "monospace:size=11";
 static const char col_gray1[]       = "#222222";
