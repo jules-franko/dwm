@@ -34,6 +34,10 @@ static const char *colors[][SchemeN][3] = {
 		[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 		[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 	},
+	{ /* gruvbox */
+		[SchemeNorm] = { "#bdae93", "#282828", "#504945" },
+		[SchemeSel]  = { "#fbf1c7", "#d88b27", "#83a598"  },
+	},
 	{ /* default */
 		[SchemeNorm] = { "#f3edf4", col_gray1,  col_gray2 },
 		[SchemeSel]  = { "#8c5d99", "#f3edf4",  "#8c5d99"  },
@@ -42,6 +46,7 @@ static const char *colors[][SchemeN][3] = {
 
 /* tagging */
 //static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+//static const char *tags[] = { "󰣇", "󰈹", "󰝚", "󰭹", "󰸼", "", "", "", "" };
 static const char *tags[] = { "󰣇", "󰈹", "󰝚", "󰭹", "󰸼", "", "", "", "" };
 
 static const char ptagf[] = "[%s %s]";	/* format of a tag label */
