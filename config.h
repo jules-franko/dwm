@@ -11,11 +11,12 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 1;        /* 1 means swallow floating windows by default */
 static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
-static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 30;       /* vert outer gap between windows and screen edge */
+static const unsigned int gappoh    = 110;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 130;       /* vert outer gap between windows and screen edge */
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+<<<<<<< HEAD
 static const char *fonts[]          = { "JetBrainsMono:size=11.5", "Symbols Nerd Font:size=14", "NotoColorEmoji:size=14"};
 //static const char *fonts[]          = { "monospace:size=11", "Symbols Nerd Font:size=14", "NotoColorEmoji:size=14"};
 //static const char *fonts[]          = { "xos4 terminus:size=13", "Symbols Nerd Font:size=14", "NotoColorEmoji:size=14", "Font Awesome 6 Free Regular:size=14", "Font Awesome 6 Brands Regular:size=14", "Font Awesome v4 Compatibility:size=14"};
