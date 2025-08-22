@@ -16,7 +16,6 @@ static const unsigned int gappov    = 130;       /* vert outer gap between windo
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-<<<<<<< HEAD
 static const char *fonts[]          = { "JetBrainsMono:size=11.5", "Symbols Nerd Font:size=14", "NotoColorEmoji:size=14"};
 //static const char *fonts[]          = { "monospace:size=11", "Symbols Nerd Font:size=14", "NotoColorEmoji:size=14"};
 //static const char *fonts[]          = { "xos4 terminus:size=13", "Symbols Nerd Font:size=14", "NotoColorEmoji:size=14", "Font Awesome 6 Free Regular:size=14", "Font Awesome 6 Brands Regular:size=14", "Font Awesome v4 Compatibility:size=14"};
@@ -28,13 +27,13 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][SchemeN][3] = {
 		/*               fg         bg         border   */
-	{ /* gruvbox */
-		[SchemeNorm] = { "#bdae93", "#282828", "#504945" },
-		[SchemeSel]  = { "#fbf1c7", "#98971a", "#83a598"  },
-	},
 	{ /* default */
 		[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 		[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	},
+	{ /* gruvbox */
+		[SchemeNorm] = { "#bdae93", "#282828", "#504945" },
+		[SchemeSel]  = { "#fbf1c7", "#98971a", "#83a598"  },
 	},
 	{ /* gruvbox */
 		[SchemeNorm] = { "#bdae93", "#282828", "#504945" },
@@ -74,7 +73,8 @@ static const Rule rules[] = {
 	{ NULL,      NULL,     "ncmpcpp",      0,         1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Error",        1 << 3,    1,          1,           0,        -1 },
 	{ NULL,      NULL,     "ranger",       0,         0,          1,           1,        -1 },
-	{ NULL,      NULL,     "stt",      0,         1,          1,           0,        -1 },
+	{ NULL,      NULL,     "stt",          0,         1,          1,           0,        -1 },
+	{ NULL,      NULL,     "st",           0,         0,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
