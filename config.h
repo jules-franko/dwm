@@ -3,7 +3,7 @@
 
 /*MACROS*/
 #define TERMINAL "st"
-#define BROWSER "librewolf"
+#define BROWSER "firefox"
 
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
@@ -11,8 +11,8 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 1;        /* 1 means swallow floating windows by default */
 static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
-static const unsigned int gappoh    = 110;       /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 130;       /* vert outer gap between windows and screen edge */
+static const unsigned int gappoh    = 30;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 50;       /* vert outer gap between windows and screen edge */
 static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -48,7 +48,7 @@ static const char *colors[][SchemeN][3] = {
 /* tagging */
 //static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 //static const char *tags[] = { "󰣇", "󰈹", "󰝚", "󰭹", "󰸼", "", "", "", "" };
-static const char *tags[] = { "󰣇", "󰈹", "󰝚", "󰭹", "󰸼", "", "", "", "" };
+static const char *tags[] = { "", "󰈹", "󰝚", "󰭹", "󰸼", "", "", "", "" };
 
 static const char ptagf[] = "[%s %s]";	/* format of a tag label */
 static const char etagf[] = "[%s]";	/* format of an empty tag */
@@ -69,7 +69,7 @@ static const Rule rules[] = {
 	{ "goofcord",NULL,     NULL,           1 << 3,    0,          0,           0,        -1 },
 	{ "Spotify", NULL,     NULL,           1 << 2,    0,          0,           0,        -1 },
 	{ "steam",   NULL,     NULL,           1 << 4,    0,          0,           0,        -1 },
-	{ "st",      NULL,     NULL,           0,         0,          1,           0,        -1 },
+	//{ "st",      NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,      NULL,     "ncmpcpp",      0,         1,          1,           0,        -1 },
 	{ NULL,      NULL,     "Error",        1 << 3,    1,          1,           0,        -1 },
 	{ NULL,      NULL,     "ranger",       0,         0,          1,           1,        -1 },
@@ -112,7 +112,7 @@ static const char *termcmd[]  = { "st", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_F1,     spawn,          SHCMD( TERMINAL " -e nvim $HOME/.local/src/dwm/config.h") },
+	{ MODKEY,                       XK_F1,     spawn,         SHCMD( TERMINAL " -e nvim $HOME/.local/src/dwm/config.h") },
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_e,      spawn,          SHCMD( TERMINAL " -t ranger -e ranger") },
 	{ MODKEY,                       XK_Return, spawn,          SHCMD( TERMINAL ) },
@@ -137,8 +137,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_v,      spawn,          {.v = ( const char*[] ){ "alacritty", "-e", "nvim", NULL } } },
 	{ MODKEY,                       XK_y,      spawn,          {.v = ( const char*[] ){ "alacritty", "-e", "neomutt", NULL } } },
 	{ MODKEY,                       XK_BackSpace,      spawn,          {.v = ( const char*[] ){ "dwmactions", NULL } } },
-	{ 0,                            XF86XK_MonBrightnessUp,    spawn,          SHCMD( "brightnessctl set +2%") },
-	{ 0,                            XF86XK_MonBrightnessDown,  spawn,          SHCMD( "brightnessctl set 2%-") },
+	{ 0,                            XF86XK_MonBrightnessUp,    spawn,          SHCMD( "xbacklight +2") },
+	{ 0,                            XF86XK_MonBrightnessDown,  spawn,          SHCMD( "xbacklight -2") },
 	{ 0,                            XF86XK_AudioRaiseVolume,   spawn,          SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%; kill -44 $(pidof dwmblocks)") },
 	{ 0,                            XF86XK_AudioLowerVolume,   spawn,          SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%; kill -44 $(pidof dwmblocks)") },
 
